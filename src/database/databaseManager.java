@@ -2,6 +2,7 @@ package database;
 
 import model.Task;
 
+
 public class databaseManager {
     public void connect(){}
     public void insertTask(Task task){}
@@ -10,3 +11,5 @@ public class databaseManager {
     public void deleteTask(){}
 
     }
+
+

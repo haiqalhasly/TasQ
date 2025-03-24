@@ -77,4 +77,5 @@ public class AdminUI {
             taskListModel.addElement(task.getTitle() + " - " + task.getExp() + " EXP");
         }
     }
+
 }

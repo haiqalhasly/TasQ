@@ -1,17 +1,16 @@
 package ui;
 
 import javax.swing.*;
+import ui.*;
+
+
 import java.awt.*;
 import java.awt.event.*;
 
-public class MainUI implements ItemListener{
+public class MainUI implements ItemListener {
 
     private JFrame frame;
     private JPanel cardPanel;
-
-
-
-    
 
     // Names for our cards
     private final String CRUD_CARD = "EDIT TASK";
@@ -21,17 +20,28 @@ public class MainUI implements ItemListener{
 
         frame = new JFrame("TasQ - Admin Panel");
         frame.setSize(400, 500);
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+
+
 
         // Navigation control
         JPanel controlPanel = new JPanel();
 
         JButton crudButton = new JButton("Edit Task");
         JButton leaderboardButton = new JButton("Leaderboard");
+        
+        JButton logoutButton = new JButton("Logout");
+
+        logoutButton.addActionListener(e -> {
+               LoginFrame loginFrame = new LoginFrame();
+               frame.dispose();
+        });
 
         controlPanel.add(crudButton);
         controlPanel.add(leaderboardButton);
+        controlPanel.add(logoutButton);
 
         // Panel with CardLayout
         cardPanel = new JPanel();
@@ -40,7 +50,6 @@ public class MainUI implements ItemListener{
         // Create crud card UI
         JPanel crudPanel = new JPanel();
         new AdminUI(crudPanel);
-
 
         // Create leaderboard card UI
         JPanel leaderboardPanel = new JPanel();

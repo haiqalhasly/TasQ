@@ -1,32 +1,34 @@
 package service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
-
 import model.User;
 
 public class LeaderboardController {
 
-    private HashMap<Integer, User> users;
+//     //Create hashmap that takes user id and exp
+//     private HashMap<User, Integer> usersHashMap;
 
-//Constructors
-    public LeaderboardController(){
-        users = new HashMap<>();
-    }
+// //Constructors
+//     public LeaderboardController(){
+//         usersHashMap = new HashMap<>();
+//     }
 
-    public void addUser(User user){
-        users.put(user.getUserID(), user);
-    }
+//     public void addScore(User userID, int score){
 
-    public void addScore(int userID, int score){
-        User user = users.get(userID);
-        if (user != null){
-            user.setExp(user.getExp()+ score);
-        }
-    }
+//         // if the player is not already present, initialize
+//         // the player's score to 0
+//         if (!usersHashMap.containsKey(userID)){
+//             usersHashMap.put(userID, 0);
+//         }
+
+//         usersHashMap.put(userID, usersHashMap.get(userID)+ score);
+//     }
+
+//     public void printUsersHashMap() {
+//         System.out.println(usersHashMap);
+//     }
 
     //Method to get top users
+
 
 }
