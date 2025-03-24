@@ -1,7 +1,6 @@
 package ui;
 
 import javax.swing.*;
-import ui.*;
 
 
 import java.awt.*;
@@ -12,7 +11,7 @@ public class MainUI implements ItemListener {
     private JFrame frame;
     private JPanel cardPanel;
 
-    // Names for our cards
+    // Names for our cards. Cards will be use to switch between frame or panel
     private final String CRUD_CARD = "EDIT TASK";
     private final String LEADERBOARD_CARD = "LEADERBOARD";
 

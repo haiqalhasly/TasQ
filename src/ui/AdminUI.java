@@ -30,15 +30,6 @@ public class AdminUI {
         descriptionField.setForeground(Color.WHITE);
         expField.setForeground(Color.WHITE);
 
-        // Pixel Font (Optional)
-        Font pixelFont = new Font("Monospaced", Font.BOLD, 14);
-        taskList.setFont(pixelFont);
-        titleField.setFont(pixelFont);
-        descriptionField.setFont(pixelFont);
-        expField.setFont(pixelFont);
-        addButton.setFont(pixelFont);
-        deleteButton.setFont(pixelFont);
-
         panel.add(new JLabel("Title:", SwingConstants.CENTER));
         panel.add(titleField);
         panel.add(new JLabel("Description:", SwingConstants.CENTER));
