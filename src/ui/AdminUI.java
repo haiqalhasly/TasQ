@@ -1,72 +1,90 @@
 package ui;
 
-import service.TaskController;
-
 import javax.swing.*;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 
-public class AdminUI {
-    private TaskController taskController = new TaskController();
-    private DefaultListModel<String> taskListModel = new DefaultListModel<>();
-    private JList<String> taskList = new JList<>(taskListModel);
-    private JTextField titleField = new JTextField(15);
-    private JTextField descriptionField = new JTextField(15);
-    private JTextField expField = new JTextField(5);
-    private JButton addButton = new JButton("Add Task");
-    private JButton deleteButton = new JButton("Delete Task");
+public class AdminUI implements ItemListener {
 
-    public AdminUI(JPanel panel) {
-        panel.setBackground(new Color(20, 20, 20)); // Dark background
-        panel.setLayout(new GridLayout(6, 1, 10, 10));
+    private JFrame frame;
+    private JPanel cardPanel;
 
-        // Set text color
-        taskList.setForeground(Color.WHITE);
-        taskList.setBackground(new Color(30, 30, 30));
-        titleField.setBackground(new Color(40, 40, 40));
-        descriptionField.setBackground(new Color(40, 40, 40));
-        expField.setBackground(new Color(40, 40, 40));
-        titleField.setForeground(Color.WHITE);
-        descriptionField.setForeground(Color.WHITE);
-        expField.setForeground(Color.WHITE);
+    // Names for our cards. Cards will be use to switch between frame or panel
+    private final String CRUD_CARD = "EDIT TASK";
+    private final String LEADERBOARD_CARD = "LEADERBOARD";
 
-        panel.add(new JLabel("Title:", SwingConstants.CENTER));
-        panel.add(titleField);
-        panel.add(new JLabel("Description:", SwingConstants.CENTER));
-        panel.add(descriptionField);
-        panel.add(new JLabel("EXP:", SwingConstants.CENTER));
-        panel.add(expField);
-        panel.add(addButton);
-        panel.add(deleteButton);
+    public AdminUI() {
 
-        panel.add(new JScrollPane(taskList), BorderLayout.CENTER);
+        frame = new JFrame("TasQ - Admin Panel");
+        frame.setSize(400, 500);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
 
-        // Button Actions
-        addButton.addActionListener(this::addTask);
-        deleteButton.addActionListener(this::deleteTask);
+
+
+        // Navigation control
+        JPanel controlPanel = new JPanel();
+
+        JButton crudButton = new JButton("Edit Task");
+        JButton leaderboardButton = new JButton("Leaderboard");
+        
+        JButton logoutButton = new JButton("Logout");
+
+        logoutButton.addActionListener(e -> {
+               LoginFrame loginFrame = new LoginFrame();
+               frame.dispose();
+        });
+
+        controlPanel.add(crudButton);
+        controlPanel.add(leaderboardButton);
+        controlPanel.add(logoutButton);
+
+        // Panel with CardLayout
+        cardPanel = new JPanel();
+        cardPanel.setLayout(new CardLayout());
+
+        // Create crud card UI
+        JPanel crudPanel = new JPanel();
+        new AdminCreate(crudPanel);
+
+        // Create leaderboard card UI
+        JPanel leaderboardPanel = new JPanel();
+        new AdminLeaderboard();
+
+        // Add crud and leaderboard card to main cardPanel
+        cardPanel.add(crudPanel, CRUD_CARD);
+        cardPanel.add(leaderboardPanel, LEADERBOARD_CARD);
+
+        // add action listener TO CRUD CARD
+        crudButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+                cardLayout.show((cardPanel), CRUD_CARD);
+            }
+        });
+
+        // add action listener TO LEADERBOARD CARD
+        leaderboardButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+                cardLayout.show((cardPanel), LEADERBOARD_CARD);
+            }
+        });
+
+        // Add panels to the frame
+        frame.add(controlPanel, BorderLayout.NORTH);
+        frame.add(cardPanel, BorderLayout.CENTER);
+
+        // Display the window
+        frame.setVisible(true);
+
     }
 
-    private void addTask(ActionEvent e) {
-        String title = titleField.getText();
-        String description = descriptionField.getText();
-        int exp = Integer.parseInt(expField.getText());
-        taskController.addTask(title, description, exp);
-        updateTaskList();
-    }
-
-    private void deleteTask(ActionEvent e) {
-        int selectedIndex = taskList.getSelectedIndex();
-        if (selectedIndex >= 0) {
-            taskController.deleteTask(selectedIndex + 1);
-            updateTaskList();
-        }
-    }
-
-    private void updateTaskList() {
-        taskListModel.clear();
-        for (model.Task task : taskController.getAllTasks()) {
-            taskListModel.addElement(task.getTitle() + " - " + task.getExp() + " EXP");
-        }
+    public void itemStateChanged(ItemEvent evt) {
+        CardLayout cl = (CardLayout) (cardPanel.getLayout());
+        cl.show(cardPanel, (String) evt.getItem());
     }
 
 }

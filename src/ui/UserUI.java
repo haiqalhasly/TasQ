@@ -36,6 +36,9 @@ public class UserUI extends JFrame {
         // Apply Dark Theme
         getContentPane().setBackground(new Color(40, 44, 52));
         
+        
+
+        
         users = new ArrayList<>();
         users.add(new User("Alice",0));
         users.add(new User("Bob",45));

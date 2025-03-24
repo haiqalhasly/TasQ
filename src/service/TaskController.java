@@ -53,7 +53,7 @@ public class TaskController {
 
 
      // Get All Tasks
-    public List<Task> getAllTasks() {
+    public ArrayList<Task> getAllTasks() {
         return tasks;
     }
 

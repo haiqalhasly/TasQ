@@ -1,11 +1,12 @@
 package ui;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Login {
+public class SimpleLoginSystem {
     // public static void main(String[] args) {
         // SwingUtilities.invokeLater(LoginFrame::new);
     // }
@@ -51,7 +52,7 @@ class LoginFrame extends JFrame {
 class AdminFrame extends JFrame {
     public AdminFrame(JFrame loginFrame) {
 
-        MainUI MainUI = new MainUI();
+        AdminUI MainUI = new AdminUI();
 
 
         
