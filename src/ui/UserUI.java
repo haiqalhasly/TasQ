@@ -6,26 +6,40 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import model.*;
+import service.TaskController;
+import service.TaskController.InnerTaskController;
 
 public class UserUI extends JFrame {
+
+
+    //Instance fields for UI
 
     private JPanel mainPanel, taskPanel, leaderboardPanel;
     private JLabel expLabel;
     private JButton switchToLeaderboard, switchToTasks;
     
+    //Instance fields for backend
+    TaskController taskController = TaskController.getInstance();
+    InnerTaskController innerTaskController;
     private ArrayList<User> users;
     private User currentUser;
     private ArrayList<Task> tasks;
     private Leaderboard leaderboard;
 
+
+
+
     public UserUI() {
-        super("To-Do List App");
+        super("TASQ");
         setSize(600, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         setVisible(true);
-
+        
+        this.taskController = taskController;
+        this.tasks = taskController.getAllTasks();
+        this.innerTaskController = taskController.new InnerTaskController();
         JButton logoutButton = new JButton("Logout");
 
         logoutButton.addActionListener(e -> {
@@ -45,11 +59,10 @@ public class UserUI extends JFrame {
         users.add(new User("Charlie",70));
         currentUser = users.get(0);
 
-        tasks = new ArrayList<>();
-        tasks.add(new Task(1,"Homework","JAVA", 50));
-        tasks.add(new Task(2,"Wash the dishes","20 dishes", 20));
-        tasks.add(new Task(3,"Read Atomic Habits","Read 30 minutes", 30));
-        tasks.add(new Task(4,"Exercise for 15 minutes","Push Day", 25));
+
+        tasks = taskController.getAllTasks();
+
+        innerTaskController.transferTask(tasks);
 
         leaderboard = new Leaderboard(users);
 
@@ -96,6 +109,8 @@ public class UserUI extends JFrame {
         refreshTaskList();
     }
 
+    //Styled button
+
     private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 14));
@@ -103,18 +118,11 @@ public class UserUI extends JFrame {
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createLineBorder(new Color(90, 100, 120), 2));
-        
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(90, 100, 120));
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(70, 80, 100));
-            }
-        });
 
         return button;
     }
+
+    //Card to switch view
 
     private void switchView(String viewName) {
         CardLayout cardLayout = (CardLayout) mainPanel.getLayout();
@@ -155,6 +163,8 @@ public class UserUI extends JFrame {
         taskPanel.repaint();
     }
 
+    //Complete Task MessageDialog
+
     private void completeTask(Task task) {
         tasks.remove(task);
         currentUser.setExp(task.getExp());
@@ -163,10 +173,4 @@ public class UserUI extends JFrame {
         JOptionPane.showMessageDialog(this, "🎉 Task Completed!\nYou gained " + task.getExp() + " EXP.",
                 "Task Completed", JOptionPane.INFORMATION_MESSAGE);
     }
-
-
-
-    // public static void main(String[] args) {
-    //     SwingUtilities.invokeLater(() -> new UserUI().setVisible(true));
-    // }
 }

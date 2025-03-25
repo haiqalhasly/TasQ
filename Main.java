@@ -1,15 +1,12 @@
 import javax.swing.SwingUtilities;
-
-import ui.AdminUI;
-import ui.SimpleLoginSystem;
+import ui.*;
 
 public class Main {
     public static void main(String[] args) {
-        // For thread safety, create and show GUI on the Event Dispatch Thread
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new SimpleLoginSystem();
+        //Ensures GUI swings created and updated
+        SwingUtilities.invokeLater(() -> new Login());
+        //Implements lambda expression () is the parameter. -> lambda operator ->  and new Login() is a method
+        //Makes the codes cleaner
             }
-        });
-    }
-}
+        }
+    

@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class AdminCreate {
-    private TaskController taskController = new TaskController();
+    private TaskController taskController;
     private DefaultListModel<String> taskListModel = new DefaultListModel<>();
     private JList<String> taskList = new JList<>(taskListModel);
     private JLabel titleLabel = new JLabel("Title", SwingConstants.CENTER);
@@ -19,10 +19,13 @@ public class AdminCreate {
     private JButton addButton = new JButton("Add Task");
     private JButton deleteButton = new JButton("Delete Task");
 
-    public AdminCreate(JPanel panel) {
+    
+
+    public AdminCreate(JPanel panel, TaskController taskController) {
         panel.setBackground(new Color(20, 20, 20)); // Dark background
         panel.setLayout(new GridLayout(6, 1, 10, 10));
 
+        this.taskController = taskController.getInstance();
         // Set text color
         taskList.setForeground(Color.WHITE);
         taskList.setBackground(new Color(30, 30, 30));
@@ -32,7 +35,7 @@ public class AdminCreate {
         titleLabel.setForeground(Color.white);
         descriptionLabel.setForeground(Color.white);
         expLabel.setForeground(Color.white);
-        expField.setForeground(Color.white);
+        titleField.setForeground(Color.white);
         descriptionField.setForeground(Color.WHITE);
         expField.setForeground(Color.WHITE);
 

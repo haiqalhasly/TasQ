@@ -35,9 +35,12 @@ public class Task {
         System.out.println("EXP: " + exp);
     }
 
-    public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+    //Overrride to string method to avoid hex code
+
+    @Override
+    public String toString(){
+        return title;
+        
     }
 
 }
