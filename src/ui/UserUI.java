@@ -142,11 +142,11 @@ public class UserUI extends JFrame {
             panel.setBackground(new Color(50, 54, 62));
             panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-            JLabel taskLabel = new JLabel("📌 " + task.getTitle() + "  (+ " + task.getExp() + " EXP)");
+            JLabel taskLabel = new JLabel(task.getTitle() + "  (+ " + task.getExp() + " EXP)");
             taskLabel.setFont(new Font("Arial", Font.PLAIN, 14));
             taskLabel.setForeground(Color.WHITE);
 
-            JButton completeButton = createStyledButton("✅ Complete");
+            JButton completeButton = createStyledButton(" [/] Complete");
 
             completeButton.addActionListener(new ActionListener() {
                 @Override
@@ -170,7 +170,7 @@ public class UserUI extends JFrame {
         currentUser.setExp(task.getExp());
         expLabel.setText("User: " + currentUser.getName() + " | EXP: " + currentUser.getExp());
         refreshTaskList();
-        JOptionPane.showMessageDialog(this, "🎉 Task Completed!\nYou gained " + task.getExp() + " EXP.",
+        JOptionPane.showMessageDialog(this, " Task Completed!\nYou gained " + task.getExp() + " EXP.",
                 "Task Completed", JOptionPane.INFORMATION_MESSAGE);
     }
 }
