@@ -164,10 +164,13 @@ public class UserUI extends JFrame {
 
     private void completeTask(Task task) {
         tasks.remove(task);
-        currentUser.setExp(task.getExp());
+        currentUser.addExp(task.getExp()); // Instead of setExp, use addExp
         expLabel.setText("User: " + currentUser.getName() + " | EXP: " + currentUser.getExp());
+
         refreshTaskList();
+        leaderboard.refreshLeaderboard(leaderboardPanel); // Refresh leaderboard
         JOptionPane.showMessageDialog(this, " Task Completed!\nYou gained " + task.getExp() + " EXP.",
                 "Task Completed", JOptionPane.INFORMATION_MESSAGE);
     }
+
 }

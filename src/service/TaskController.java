@@ -3,14 +3,15 @@ package service;
 import java.util.ArrayList;
 
 import model.Task;
+import model.User;
 
 public class TaskController {
 
     // Static instance of TaskController
     private static TaskController instance;
 
-    // Persistent list of tasks
     private ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<User> users;
 
     public TaskController() {
         // if (tasks.isEmpty()) {
@@ -87,6 +88,30 @@ public class TaskController {
             }
         }
         System.out.println("Tasks not found");
+    }
+
+     public void completeTask(int userId, int taskId) {
+        Task completedTask = null;
+        for (Task task : tasks) {
+            if (task.getTaskID() == taskId) {
+                completedTask = task;
+                break;
+            }
+        }
+
+        if (completedTask == null) {
+            System.out.println("Task not found!");
+            return;
+        }
+
+        for (User user : users) {
+            if (user.getUserID() == userId) {
+                user.setExp(user.getExp() + completedTask.getExp()); // Update user's EXP
+                System.out.println(user.getName() + " completed " + completedTask.getTitle() + " and gained " + completedTask.getExp() + " EXP!");
+                return;
+            }
+        }
+        System.out.println("User not found!");
     }
 
 

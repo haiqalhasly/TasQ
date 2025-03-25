@@ -55,6 +55,10 @@ public class User {
         completedTasks.add(task);
     }
 
+    public void addExp(int exp) {
+        this.exp += exp;
+    }
+
     // Sample users
     public static ArrayList<User> createSampleUsers() {
         ArrayList<User> users = new ArrayList<>();
