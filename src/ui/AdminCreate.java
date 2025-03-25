@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class AdminCreate {
+
+    //Instance Fields
     private TaskController taskController;
     private DefaultListModel<String> taskListModel = new DefaultListModel<>();
     private JList<String> taskList = new JList<>(taskListModel);
@@ -22,6 +24,7 @@ public class AdminCreate {
     
 
     public AdminCreate(JPanel panel, TaskController taskController) {
+        //Panel
         panel.setBackground(new Color(20, 20, 20)); // Dark background
         panel.setLayout(new GridLayout(6, 1, 10, 10));
 
@@ -39,6 +42,7 @@ public class AdminCreate {
         descriptionField.setForeground(Color.WHITE);
         expField.setForeground(Color.WHITE);
 
+        //Add every component
         panel.add(titleLabel);
         panel.add(titleField);
         panel.add(descriptionLabel);
@@ -47,22 +51,56 @@ public class AdminCreate {
         panel.add(expField);
         panel.add(addButton);
         panel.add(deleteButton);
-
         panel.add(new JScrollPane(taskList), BorderLayout.CENTER);
 
-        // Button Actions
-        addButton.addActionListener(this::addTask);
-        deleteButton.addActionListener(this::deleteTask);
+        // Button Actions using Lambda Expressions
+        addButton.addActionListener(e -> addTask(e));
+        deleteButton.addActionListener(e -> deleteTask(e));
     }
 
+    // Adding task method with exception handling
     private void addTask(ActionEvent e) {
-        String title = titleField.getText();
-        String description = descriptionField.getText();
-        int exp = Integer.parseInt(expField.getText());
-        taskController.addTask(title, description, exp);
-        updateTaskList();
-    }
+        try {
+            String title = titleField.getText().trim();
+            String description = descriptionField.getText().trim();
 
+            // Validate if fields are empty
+            if (title.isEmpty() || description.isEmpty() || expField.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please fill in all fields.", "Input Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Parse EXP value
+            int exp = Integer.parseInt(expField.getText().trim());
+
+            // Validate if EXP is negative
+            if (exp < 0) {
+                JOptionPane.showMessageDialog(null, "EXP cannot be negative.", "Input Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Add task to TaskController
+            taskController.addTask(title, description, exp);
+
+            // Update the task list
+            updateTaskList();
+
+            // Clear input fields
+            titleField.setText("");
+            descriptionField.setText("");
+            expField.setText("");
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "EXP must be a valid number.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "An unexpected error occurred: " + ex.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    // Delete task method
     private void deleteTask(ActionEvent e) {
         int selectedIndex = taskList.getSelectedIndex();
         if (selectedIndex >= 0) {
@@ -70,7 +108,7 @@ public class AdminCreate {
             updateTaskList();
         }
     }
-
+    //Update Task
     private void updateTaskList() {
         taskListModel.clear();
         for (model.Task task : taskController.getAllTasks()) {

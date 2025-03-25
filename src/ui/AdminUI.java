@@ -34,11 +34,14 @@ public class AdminUI implements ItemListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
+        //LeaderboardPanel added here
         leaderboardPanel = new JPanel();
         leaderboardPanel.setLayout(new BoxLayout(leaderboardPanel, BoxLayout.Y_AXIS));
         leaderboardPanel.setBackground(new Color(40, 44, 52));
         JScrollPane leaderboardScroll = new JScrollPane(leaderboardPanel);
         leaderboardScroll.setBorder(null);
+
+        //Make Users ArrayList as sample
 
         ArrayList<User> users = new ArrayList<>();
         users = User.createSampleUsers();
