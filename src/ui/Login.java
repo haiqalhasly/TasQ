@@ -3,16 +3,30 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
-public class Login {
+// Abstract class for login. it must have this login method if used
+abstract class AbstractLogin {
+    protected abstract void login();
+}
+
+
+public class Login extends AbstractLogin {
 
     LoginFrame loginFrame = new LoginFrame();
+
+    @Override
+    protected void login() {
+        loginFrame.login(); // Calls the login function in LoginFrame
+    }
+
 }
+
 
 class LoginFrame extends JFrame {
     //Create ID field variable
     private JTextField idField;
 
     public LoginFrame() {
+
 
         //Basic Login Layout
         super("Login Page");
@@ -37,7 +51,7 @@ class LoginFrame extends JFrame {
         setVisible(true);
     }
     //Login function
-    private void login() {
+    protected void login() {
 
         //Exception handling.We use try to things that may go wrong. Catch to catch any error
         try {

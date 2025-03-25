@@ -6,7 +6,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class AdminCreate {
+// Define an interface for Admin Task Management
+interface AdminTaskManager {
+    void addTask(ActionEvent e);
+
+    void deleteTask(ActionEvent e);
+
+    void updateTaskList();
+}
+
+//Implements interface AdminTaskManager. ensure the function will be used and not left out
+
+public class AdminCreate implements AdminTaskManager{
 
     //Instance Fields
     private TaskController taskController;
@@ -59,7 +70,7 @@ public class AdminCreate {
     }
 
     // Adding task method with exception handling
-    private void addTask(ActionEvent e) {
+    public void addTask(ActionEvent e) {
         try {
             String title = titleField.getText().trim();
             String description = descriptionField.getText().trim();
@@ -101,7 +112,7 @@ public class AdminCreate {
     }
     
     // Delete task method
-    private void deleteTask(ActionEvent e) {
+    public void deleteTask(ActionEvent e) {
         int selectedIndex = taskList.getSelectedIndex();
         if (selectedIndex >= 0) {
             taskController.deleteTask(selectedIndex + 1);
@@ -109,7 +120,7 @@ public class AdminCreate {
         }
     }
     //Update Task
-    private void updateTaskList() {
+    public void updateTaskList() {
         taskListModel.clear();
         for (model.Task task : taskController.getAllTasks()) {
             taskListModel.addElement(task.getTitle() + " - " + task.getExp() + " EXP");
