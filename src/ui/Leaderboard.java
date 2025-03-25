@@ -19,7 +19,7 @@ public class Leaderboard {
         for (User user : users) {
             JLabel label = new JLabel(user.getName() + " - " + user.getExp() + " EXP");
             label.setFont(new Font("Arial", Font.BOLD, 16));
-            label.setForeground(Color.WHITE);
+            label.setForeground(Color.GRAY);
             leaderboardPanel.add(label);
         }
 

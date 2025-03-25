@@ -1,8 +1,13 @@
 package ui;
 
 import javax.swing.*;
+
+import model.User;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import service.TaskController;
 
 //Using interface which is class from ItemListener
@@ -11,6 +16,7 @@ public class AdminUI implements ItemListener {
     private JFrame frame;
     private JPanel cardPanel;
     private TaskController taskController;
+    private JPanel leaderboardPanel;
 
     // Names for our cards. Cards will be use to switch between frame or panel
     private final String CRUD_CARD = "EDIT TASK";
@@ -26,6 +32,20 @@ public class AdminUI implements ItemListener {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+
+        leaderboardPanel = new JPanel();
+        leaderboardPanel.setLayout(new BoxLayout(leaderboardPanel, BoxLayout.Y_AXIS));
+        leaderboardPanel.setBackground(new Color(40, 44, 52));
+        JScrollPane leaderboardScroll = new JScrollPane(leaderboardPanel);
+        leaderboardScroll.setBorder(null);
+
+        ArrayList<User> users = new ArrayList<>();
+        users.add(new User("Alice", 1200));
+        users.add(new User("Bob", 1500));
+        users.add(new User("Charlie", 900));
+
+        Leaderboard leaderboard = new Leaderboard(users);
+        leaderboard.refreshLeaderboard(leaderboardPanel);
 
         // Navigation control
         JPanel controlPanel = new JPanel();
@@ -55,8 +75,7 @@ public class AdminUI implements ItemListener {
         new AdminCreate(crudPanel, taskController);
 
         // Create leaderboard card UI
-        JPanel leaderboardPanel = new JPanel();
-        new Leaderboard(null);
+        cardPanel.add(leaderboardScroll, LEADERBOARD_CARD);
 
         // Add crud and leaderboard card to main cardPanel
         cardPanel.add(crudPanel, CRUD_CARD);
@@ -72,12 +91,13 @@ public class AdminUI implements ItemListener {
 
         // add action listener TO LEADERBOARD CARD using Anonymous Inner Class. new
         // operator will create the class and the instance together
-        leaderboardButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-                cardLayout.show((cardPanel), LEADERBOARD_CARD);
-            }
+        leaderboardButton.addActionListener(e -> {
+            leaderboard.refreshLeaderboard(leaderboardPanel); // Refresh when switching
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, LEADERBOARD_CARD);
         });
+
+        
 
         // Add panels to the frame
         frame.add(controlPanel, BorderLayout.NORTH);
