@@ -17,6 +17,7 @@ public class AdminUI implements ItemListener {
     private JPanel cardPanel;
     private TaskController taskController;
     private JPanel leaderboardPanel;
+    private User currentUser;
 
     // Names for our cards. Cards will be use to switch between frame or panel
     private final String CRUD_CARD = "EDIT TASK";
@@ -40,9 +41,8 @@ public class AdminUI implements ItemListener {
         leaderboardScroll.setBorder(null);
 
         ArrayList<User> users = new ArrayList<>();
-        users.add(new User("Alice", 1200));
-        users.add(new User("Bob", 1500));
-        users.add(new User("Charlie", 900));
+        users = User.createSampleUsers();
+        currentUser = users.get(0); // Example: Set Alice as the default user
 
         Leaderboard leaderboard = new Leaderboard(users);
         leaderboard.refreshLeaderboard(leaderboardPanel);

@@ -54,11 +54,8 @@ public class UserUI extends JFrame {
 
         
         users = new ArrayList<>();
-        users.add(new User("Alice",0));
-        users.add(new User("Bob",45));
-        users.add(new User("Charlie",70));
-        currentUser = users.get(0);
-
+        users = User.createSampleUsers();
+        currentUser = users.get(0); // Example: Set Alice as the default user
 
         tasks = taskController.getAllTasks();
 
