@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import model.User;
-
+//One class
 public class Leaderboard {
     private ArrayList<User> users;
 

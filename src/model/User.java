@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+//One class
+
 public class User {
     private int userID;
     private String name;
@@ -56,8 +58,9 @@ public class User {
     }
 
     public void addExp(int exp) {
-        this.exp += exp;
-    }
+    this.exp += exp;
+}
+
 
     // Sample users
     public static ArrayList<User> createSampleUsers() {

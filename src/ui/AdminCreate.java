@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+//One class
+
 // Define an interface for Admin Task Management
 interface AdminTaskManager {
     void addTask(ActionEvent e);

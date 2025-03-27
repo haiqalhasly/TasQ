@@ -9,6 +9,8 @@ import model.*;
 import service.TaskController;
 import service.TaskController.InnerTaskController;
 
+//One Class - UserUI
+
 public class UserUI extends JFrame {
 
 
@@ -30,6 +32,7 @@ public class UserUI extends JFrame {
 
 
     public UserUI() {
+
         super("TASQ");
         setSize(600, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
