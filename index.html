@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TasQ - Portfolio Demo</title>
+    <script src="https://cj3.leaningtech.com/3.0/cj3loader.js"></script>
+</head>
+<body style="background-color: #222; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
+
+    <div id="java-container" style="width: 800px; height: 600px; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"></div>
+
+    <script>
+        async function startApp() {
+            // 1. Initialize the engine
+            await cheerpjInit();
+            
+            // 2. Attach it to the div above
+            cheerpjCreateDisplay(-1, -1, document.getElementById("java-container"));
+            
+            // 3. Run the jar file
+            // IMPORTANT: Change "Main" to your exact main class name, and "TasQ.jar" to your jar's exact name
+            await cheerpjRunMain("Main", "/app/TasQ.jar"); 
+        }
+        
+        startApp();
+    </script>
+</body>
+</html>
